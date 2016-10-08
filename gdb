@@ -1,1 +1,8 @@
-# These are my gdb notes
+# ============================== #
+# --- These are my gdb notes --- #
+# ============================== #
+
+[ - Breakpoints -]
+# Memory
+break *memory_location
+
