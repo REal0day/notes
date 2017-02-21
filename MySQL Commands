@@ -1,0 +1,28 @@
+
+Create database
+CREATE DATABASE db-name;
+
+Create Table in Database
+# You can specify what data type is entered, ie. char, ints, etc.)
+CREATE TABLE table-name (column-name1 VARCHAR(20), column-name2 CHAR(1), birth DATE);
+
+Add Entries in MySQL
+# You select the columns, then the strings, ints, etc.
+mysql> INSERT INTO tablename
+     ->(column_title1, column_title2, submission_date)
+     ->VALUES
+     ->("JAVA Tutorial", "Sanjay", '2007-05-06');
+
+Show Column in Table
+SELECT DISTINCT [column name] FROM [table name]; 
+
+Delete Database
+DROP DATABASE db-name;
+
+
+
+
+
+
+Reference:
+http://g2pc1.bu.edu/~qzpeng/manual/MySQL%20Commands.htm
