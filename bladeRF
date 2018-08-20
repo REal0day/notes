@@ -1,0 +1,87 @@
+Resources:
+https://github.com/Nuand/bladeRF/wiki/Getting-Started%3A-Verifying-Basic-Device-Operation
+Images: http://www.nuand.com/fpga_images/
+https://github.com/Nuand/bladeRF/wiki/FPGA-Autoloading
+
+
+
+Installing on Mac OS X
+### Must have brew installed
+
+$ brew install libusb pkgconfig cmake libtecla
+
+Get the latest repo for bladeRF
+
+$ git clone https://github.com/Nuand/bladeRF.git
+$ cd ./bladeRF
+
+Build time!
+$ cd host/
+$ mkdir build; cd build
+$ cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/local ..
+$ make
+$ sudo make install
+
+Did it work? Let's try it out.
+Connect you bladeRF to your laptop and run the following command:
+
+$ bladeRF-cli -p
+    Backend:        libusb
+    Serial:         f12ce1037830a1b27f3ceeba1f521413
+    USB Bus:        4
+    USB Address:    8
+
+Nice! Let's go into interactive mode.
+Don't worry about not having a bitstream/fpga image on it.
+It doesn't come with one on it. We will install it in a bit.
+
+$ bladeRF-cli -i
+
+bladeRF> help
+
+... (Help text shown here ) ...
+
+bladeRF> info
+
+  Serial #:                 f12ce1037830a1b27f3ceeba1f521413                          
+  VCTCXO DAC calibration:   0x894e
+  FPGA size:                40 KLE
+  FPGA loaded:              no
+  USB bus:                  2
+  USB address:              3
+  USB speed:                SuperSpeed
+  Backend:                  libusb
+  Instance:                 0
+
+bladeRF> version
+  bladeRF-cli version:        0.11.0-git-58c3ff4
+  libbladeRF version:         0.16.1-git-58c3ff4
+
+  Firmware version:           1.7.1-git-ca697ee
+  FPGA version:               Unknown (FPGA not loaded)
+
+
+Grab the latest version FPGA image for your device.
+On the back of you device, you can see one of the following:
+- BladeRF A4
+- BladeRF A9
+- BladeRF x40
+- BladeRF x115
+
+http://www.nuand.com/fpga_images/
+
+Once you download it, enter the following command:
+
+bladeRF-cli -l <path/to/fpga/file>
+or in interactive mode
+bladeRF> load fpga <path/to/fpga/file>
+
+LED1, LED2, and LED3 will light up.
+When it's in use, LED2 will be blinking!
+
+yate
+Download yate http://docs.yate.ro/wiki/Download#MacOS_X
+http://voip.null.ro/tarballs/yate5/yate-5.5.0-1.dmg
+
+Installed yate, going back to trying to install yateBTS
+
